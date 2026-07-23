@@ -3,23 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FryedCinema | Watch & Upload</title>
+<title>Creator Hub | @YourName</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
+    --bg-color: #0f0f11;
+    --card-bg: #18181c;
+    --card-border: rgba(255, 255, 255, 0.08);
     --primary: #ff9800;
     --primary-hover: #e68a00;
-    --bg-dark: #0f0f11;
-    --card-bg: #1a1a1e;
     --text-main: #ffffff;
     --text-muted: #a0a0ab;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -27,440 +28,221 @@
 }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-color);
     color: var(--text-main);
-    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-/* NAV BAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    background: rgba(15, 15, 17, 0.85);
-    position: fixed;
-    top: 0;
+/* HUB CONTAINER */
+.hub-container {
     width: 100%;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 152, 0, 0.1);
+    max-width: 480px;
+    text-align: center;
 }
 
-.logo {
-    font-size: 1.8rem;
+/* PROFILE HEADER */
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+    margin-bottom: 16px;
+}
+
+.profile-name {
+    font-size: 1.5rem;
     font-weight: 800;
-    color: var(--primary);
-    text-transform: uppercase;
-    letter-spacing: -0.5px;
+    margin-bottom: 6px;
 }
 
-.nav-links {
+.profile-bio {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.4;
+}
+
+/* SOCIAL ICONS BAR */
+.social-icons {
     display: flex;
-    gap: 20px;
-    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
 }
 
-.btn {
-    padding: 10px 22px;
+.social-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.social-icon:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* LINKS STACK */
+.links-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.link-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 16px 20px;
+    border-radius: 12px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+}
+
+.link-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.15);
+}
+
+.link-card.highlight {
     background: var(--primary);
     color: #000;
     border: none;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s ease;
-    text-decoration: none;
 }
 
-.btn:hover {
+.link-card.highlight:hover {
     background: var(--primary-hover);
-    transform: translateY(-2px);
 }
 
-/* HERO BANNER */
-.hero {
-    height: 45vh;
-    background: linear-gradient(to top, var(--bg-dark), transparent),
-                linear-gradient(to right, rgba(0,0,0,0.85), transparent),
-                url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80') center/cover;
-    display: flex;
-    align-items: center;
-    padding: 0 5%;
-    margin-top: 60px;
-}
-
-.hero-content {
-    max-width: 550px;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    color: var(--text-muted);
-    margin-bottom: 20px;
-}
-
-/* MAIN CONTENT */
-section {
-    padding: 40px 5%;
-}
-
-h2 {
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-}
-
-h2 span {
-    color: var(--primary);
-}
-
-/* MOVIE GRID */
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-}
-
-.movie-card {
+/* TIP / SUPPORT BOX */
+.support-card {
     background: var(--card-bg);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 30px;
 }
 
-.movie-card:hover {
-    border-color: rgba(255, 152, 0, 0.4);
-    box-shadow: 0 10px 25px rgba(255, 152, 0, 0.15);
-}
-
-.movie-video {
-    width: 100%;
-    height: 180px;
-    background: #000;
-    object-fit: cover;
-}
-
-.movie-info {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-.movie-title {
-    font-size: 1.1rem;
+.support-title {
+    font-size: 1rem;
     font-weight: 700;
+    margin-bottom: 6px;
 }
 
-.movie-genre {
+.support-sub {
     font-size: 0.85rem;
     color: var(--text-muted);
-    margin-top: 4px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
-/* UPLOAD SECTION */
-.upload-card {
-    background: var(--card-bg);
-    padding: 35px;
-    border-radius: 16px;
-    max-width: 650px;
-    margin: 0 auto;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+.tip-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
-.form-group {
-    margin-bottom: 20px;
+.tip-btn {
+    flex: 1;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: 0.2s ease;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
+.tip-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* FOOTER */
+footer {
+    font-size: 0.8rem;
     color: var(--text-muted);
 }
 
-.form-group input {
-    width: 100%;
-    padding: 14px;
-    background: #25252a;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-radius: 8px;
-    outline: none;
-}
-
-.form-group input:focus {
-    border-color: var(--primary);
-}
-
-.upload-type-selector {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.type-btn {
-    flex: 1;
-    padding: 10px;
-    background: #25252a;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.type-btn.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-}
-
-/* FULLSCREEN MODAL */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    width: 90%;
-    max-width: 960px;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-}
-
-#fullscreenPlayer {
-    width: 100%;
-    height: auto;
-    max-height: 80vh;
-    display: block;
-}
-
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    color: #fff;
-    font-size: 2.2rem;
-    cursor: pointer;
-    z-index: 1001;
-}
-
-.close-btn:hover {
+footer a {
     color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
 }
 </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">🍿 FryedCinema</div>
-    <div class="nav-links">
-        <a href="#library" class="btn" style="background: transparent; color: #fff;">Library</a>
-        <a href="#upload" class="btn">Upload Movie</a>
+<div class="hub-container">
+    
+    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Profile" class="profile-img">
+    <h1 class="profile-name">Alex Rivera</h1>
+    <p class="profile-bio">Digital Creator & Video Editor 🎥<br>Helping creators level up their content.</p>
+
+    <div class="social-icons">
+        <a href="#" class="social-icon">YT</a>
+        <a href="#" class="social-icon">IG</a>
+        <a href="#" class="social-icon">X</a>
+        <a href="#" class="social-icon">DC</a>
     </div>
-</nav>
 
-<div class="hero">
-    <div class="hero-content">
-        <h1>Welcome to FryedCinema</h1>
-        <p>20 Free verified working movies ready to stream. Upload local files or paste direct video URLs to add your own!</p>
-        <button class="btn" onclick="openFullscreen('https://vjs.zencdn.net/v/oceans.mp4')">▶ Featured Movie</button>
+    <div class="links-stack">
+        <a href="#" class="link-card highlight">
+            <span>🚀 My Video Editing Course</span>
+            <span>→</span>
+        </a>
+        <a href="#" class="link-card">
+            <span>📁 Download Free Editing Pack</span>
+            <span>→</span>
+        </a>
+        <a href="#" class="link-card">
+            <span>🎙️ Listen to My Podcast</span>
+            <span>→</span>
+        </a>
+        <a href="#" class="link-card">
+            <span>📩 Book a 1-on-1 Consultation</span>
+            <span>→</span>
+        </a>
     </div>
-</div>
 
-<section id="library">
-    <h2>Movie <span>Library (20 Working Movies)</span></h2>
-    <div class="movie-grid" id="movieGrid"></div>
-</section>
-
-<section id="upload">
-    <h2>Add to <span>FryedCinema</span></h2>
-    <div class="upload-card">
-        
-        <div class="upload-type-selector">
-            <button class="type-btn active" id="btnUrl" onclick="setUploadType('url')">Paste Video URL</button>
-            <button class="type-btn" id="btnFile" onclick="setUploadType('file')">Upload Local File</button>
+    <div class="support-card">
+        <div class="support-title">☕ Support My Work</div>
+        <div class="support-sub">If my free content helped you out, buy me a coffee!</div>
+        <div class="tip-buttons">
+            <a href="https://cash.app" target="_blank" class="tip-btn">Cash App</a>
+            <a href="https://paypal.com" target="_blank" class="tip-btn">PayPal</a>
+            <a href="https://venmo.com" target="_blank" class="tip-btn">Venmo</a>
         </div>
-
-        <form id="uploadForm">
-            <div class="form-group">
-                <label>Movie Title</label>
-                <input type="text" id="movieTitle" placeholder="Enter movie title" required>
-            </div>
-            <div class="form-group">
-                <label>Genre / Category</label>
-                <input type="text" id="movieGenre" placeholder="e.g. Sci-Fi, Comedy, Action" required>
-            </div>
-
-            <div class="form-group" id="urlGroup">
-                <label>Direct Video URL (.mp4, .webm)</label>
-                <input type="url" id="movieUrl" placeholder="https://example.com/movie.mp4">
-            </div>
-
-            <div class="form-group" id="fileGroup" style="display: none;">
-                <label>Select Local Video File (.mp4)</label>
-                <input type="file" id="videoFile" accept="video/mp4,video/webm">
-            </div>
-
-            <button type="submit" class="btn" style="width: 100%;">Add Movie to Library</button>
-        </form>
     </div>
-</section>
 
-<div class="modal" id="videoModal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeFullscreen()">&times;</span>
-        <video id="fullscreenPlayer" controls>
-            <source id="fullscreenSource" src="" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
-    </div>
+    <footer>
+        Created with <a href="#">FryedLinks</a>
+    </footer>
+
 </div>
-
-<script>
-// 20 FULLY WORKING PUBLIC STREAMS (No CORS/MIME errors)
-const defaultMovies = [
-    { title: "Oceans World", genre: "Documentary • 2010", url: "https://vjs.zencdn.net/v/oceans.mp4" },
-    { title: "Big Buck Bunny", genre: "Animation • 2008", url: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Big_Buck_Bunny_4K.webm" },
-    { title: "Tears of Steel", genre: "Sci-Fi • 2012", url: "https://upload.wikimedia.org/wikipedia/commons/2/22/Tears_of_Steel_teaser.webm" },
-    { title: "Sintel Dragon", genre: "Fantasy • 2010", url: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Sintel_Trailer_HD_1080p.ogv" },
-    { title: "Deep Sea Exploration", genre: "Nature • 2015", url: "https://vjs.zencdn.net/v/oceans.mp4" },
-    { title: "Bunny Quest", genre: "Animation • 2011", url: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Big_Buck_Bunny_4K.webm" },
-    { title: "Cyber Cyberpunk", genre: "Sci-Fi • 2013", url: "https://upload.wikimedia.org/wikipedia/commons/2/22/Tears_of_Steel_teaser.webm" },
-    { title: "Fantasy World", genre: "Fantasy • 2012", url: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Sintel_Trailer_HD_1080p.ogv" },
-    { title: "Ocean Life", genre: "Documentary • 2016", url: "https://vjs.zencdn.net/v/oceans.mp4" },
-    { title: "Forest Tales", genre: "Animation • 2014", url: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Big_Buck_Bunny_4K.webm" },
-    { title: "Sci-Fi Resistance", genre: "Sci-Fi • 2015", url: "https://upload.wikimedia.org/wikipedia/commons/2/22/Tears_of_Steel_teaser.webm" },
-    { title: "Dragon Chronicles", genre: "Fantasy • 2013", url: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Sintel_Trailer_HD_1080p.ogv" },
-    { title: "Marine Mysteries", genre: "Documentary • 2018", url: "https://vjs.zencdn.net/v/oceans.mp4" },
-    { title: "Meadow Run", genre: "Animation • 2019", url: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Big_Buck_Bunny_4K.webm" },
-    { title: "Future War", genre: "Sci-Fi • 2020", url: "https://upload.wikimedia.org/wikipedia/commons/2/22/Tears_of_Steel_teaser.webm" },
-    { title: "The Lone Hero", genre: "Fantasy • 2021", url: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Sintel_Trailer_HD_1080p.ogv" },
-    { title: "Coral Reefs", genre: "Documentary • 2022", url: "https://vjs.zencdn.net/v/oceans.mp4" },
-    { title: "Chinchilla's Revenge", genre: "Animation • 2023", url: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Big_Buck_Bunny_4K.webm" },
-    { title: "Dystopian City", genre: "Sci-Fi • 2024", url: "https://upload.wikimedia.org/wikipedia/commons/2/22/Tears_of_Steel_teaser.webm" },
-    { title: "Mountain Peak", genre: "Fantasy • 2025", url: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Sintel_Trailer_HD_1080p.ogv" }
-];
-
-const movieGrid = document.getElementById('movieGrid');
-const modal = document.getElementById('videoModal');
-const fullscreenPlayer = document.getElementById('fullscreenPlayer');
-const fullscreenSource = document.getElementById('fullscreenSource');
-const uploadForm = document.getElementById('uploadForm');
-
-let currentUploadType = 'url';
-
-// Load default 20 movies on startup
-function loadMovies() {
-    movieGrid.innerHTML = '';
-    defaultMovies.forEach(movie => {
-        addMovieCard(movie.title, movie.genre, movie.url);
-    });
-}
-
-// Add movie card to DOM
-function addMovieCard(title, genre, url) {
-    const card = document.createElement('div');
-    card.className = 'movie-card';
-    card.innerHTML = `
-        <video class="movie-video" controls preload="metadata">
-            <source src="${url}">
-            Your browser does not support HTML5 video.
-        </video>
-        <div class="movie-info">
-            <div>
-                <div class="movie-title">${title}</div>
-                <div class="movie-genre">${genre}</div>
-            </div>
-            <button class="btn" style="width: 100%; padding: 8px; margin-top: 10px;" onclick="openFullscreen('${url}')">Watch Fullscreen</button>
-        </div>
-    `;
-    movieGrid.appendChild(card);
-}
-
-// Toggle Upload Mode
-function setUploadType(type) {
-    currentUploadType = type;
-    if (type === 'url') {
-        document.getElementById('urlGroup').style.display = 'block';
-        document.getElementById('fileGroup').style.display = 'none';
-        document.getElementById('btnUrl').classList.add('active');
-        document.getElementById('btnFile').classList.remove('active');
-        document.getElementById('movieUrl').required = true;
-        document.getElementById('videoFile').required = false;
-    } else {
-        document.getElementById('urlGroup').style.display = 'none';
-        document.getElementById('fileGroup').style.display = 'block';
-        document.getElementById('btnFile').classList.add('active');
-        document.getElementById('btnUrl').classList.remove('active');
-        document.getElementById('movieUrl').required = false;
-        document.getElementById('videoFile').required = true;
-    }
-}
-
-// Upload Form Handler
-uploadForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const title = document.getElementById('movieTitle').value;
-    const genre = document.getElementById('movieGenre').value;
-    let videoURL = "";
-
-    if (currentUploadType === 'url') {
-        videoURL = document.getElementById('movieUrl').value;
-    } else {
-        const file = document.getElementById('videoFile').files[0];
-        if (file) {
-            videoURL = URL.createObjectURL(file);
-        }
-    }
-
-    if (videoURL) {
-        addMovieCard(title, genre + " • Added", videoURL);
-        uploadForm.reset();
-        alert('Movie added successfully!');
-    }
-});
-
-// Fullscreen Player Controls
-function openFullscreen(url) {
-    fullscreenSource.src = url;
-    fullscreenPlayer.load();
-    modal.style.display = 'flex';
-    fullscreenPlayer.play().catch(err => console.log(err));
-}
-
-function closeFullscreen() {
-    modal.style.display = 'none';
-    fullscreenPlayer.pause();
-    fullscreenSource.src = "";
-}
-
-// Initialize
-loadMovies();
-</script>
 
 </body>
 </html>
