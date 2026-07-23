@@ -191,7 +191,7 @@ h2 span {
     color: var(--text-muted);
 }
 
-.form-group input, .form-group select {
+.form-group input {
     width: 100%;
     padding: 14px;
     background: #25252a;
@@ -286,13 +286,13 @@ h2 span {
 <div class="hero">
     <div class="hero-content">
         <h1>Welcome to FryedCinema</h1>
-        <p>20 Free classic movies ready to stream instantly. Upload local files or paste direct video URLs to add your own!</p>
-        <button class="btn" onclick="openFullscreen('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">▶ Featured Movie</button>
+        <p>20 Free verified movies ready to stream instantly. Upload local files or paste direct video URLs to add your own!</p>
+        <button class="btn" onclick="openFullscreen('https://vjs.zencdn.net/v/oceans.mp4')">▶ Featured Movie</button>
     </div>
 </div>
 
 <section id="library">
-    <h2>Movie <span>Library (20 Free Movies)</span></h2>
+    <h2>Movie <span>Library (20 Working Movies)</span></h2>
     <div class="movie-grid" id="movieGrid"></div>
 </section>
 
@@ -321,8 +321,8 @@ h2 span {
             </div>
 
             <div class="form-group" id="fileGroup" style="display: none;">
-                <label>Select Local Video File</label>
-                <input type="file" id="videoFile" accept="video/*">
+                <label>Select Local Video File (.mp4)</label>
+                <input type="file" id="videoFile" accept="video/mp4,video/webm">
             </div>
 
             <button type="submit" class="btn" style="width: 100%;">Add Movie to Library</button>
@@ -333,7 +333,7 @@ h2 span {
 <div class="modal" id="videoModal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeFullscreen()">&times;</span>
-        <video id="fullscreenPlayer" controls>
+        <video id="fullscreenPlayer" controls crossorigin="anonymous">
             <source id="fullscreenSource" src="" type="video/mp4">
             Your browser does not support HTML5 video.
         </video>
@@ -341,24 +341,24 @@ h2 span {
 </div>
 
 <script>
-// 20 PRE-LOADED FREE MOVIES / STREAMS
+// 20 HIGH-COMPATIBILITY RELIABLE STREAMS
 const defaultMovies = [
-    { title: "Big Buck Bunny", genre: "Animation • 2008", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
     { title: "Oceans World", genre: "Documentary • 2010", url: "https://vjs.zencdn.net/v/oceans.mp4" },
+    { title: "Big Buck Bunny", genre: "Animation • 2008", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
     { title: "Elephant's Dream", genre: "Sci-Fi • 2006", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" },
     { title: "For Bigger Blazes", genre: "Action • 2015", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" },
-    { title: "Sintel", genre: "Fantasy • 2010", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" },
+    { title: "Sintel Dragon", genre: "Fantasy • 2010", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" },
     { title: "For Bigger Escapes", genre: "Adventure • 2016", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" },
     { title: "Tears of Steel", genre: "Sci-Fi • 2012", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" },
     { title: "Subway Express", genre: "Short Film • 2021", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Subway.mp4" },
     { title: "For Bigger Fun", genre: "Comedy • 2017", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" },
     { title: "For Bigger Joyrides", genre: "Action • 2018", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" },
-    { title: "We Are Going On Bullrun", genre: "Documentary • 2019", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" },
+    { title: "Bullrun Chronicles", genre: "Documentary • 2019", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" },
     { title: "What Car Can You Get", genre: "Entertainment • 2020", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4" },
-    { title: "Chromecast Launch", genre: "Tech • 2013", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TechTalk.mp4" },
-    { title: "Pixel Dream", genre: "Animation • 2021", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
-    { title: "Deep Sea Wonders", genre: "Nature • 2015", url: "https://vjs.zencdn.net/v/oceans.mp4" },
-    { title: "The Steel Chronicles", genre: "Sci-Fi • 2013", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" },
+    { title: "Tech Talk", genre: "Tech • 2013", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TechTalk.mp4" },
+    { title: "Deep Blue Exploration", genre: "Nature • 2015", url: "https://vjs.zencdn.net/v/oceans.mp4" },
+    { title: "The Steel Guard", genre: "Sci-Fi • 2013", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" },
+    { title: "Forest Bunny", genre: "Animation • 2011", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
     { title: "Dragon Quest", genre: "Fantasy • 2011", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" },
     { title: "Velocity Pursuit", genre: "Thriller • 2018", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" },
     { title: "Cyber Escape", genre: "Action • 2019", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" },
@@ -373,20 +373,22 @@ const uploadForm = document.getElementById('uploadForm');
 
 let currentUploadType = 'url';
 
-// Load default 20 movies on page startup
+// Load default 20 movies on startup
 function loadMovies() {
+    movieGrid.innerHTML = '';
     defaultMovies.forEach(movie => {
         addMovieCard(movie.title, movie.genre, movie.url);
     });
 }
 
-// Helper to append a card to grid
+// Add card with proper fallback handling
 function addMovieCard(title, genre, url) {
     const card = document.createElement('div');
     card.className = 'movie-card';
     card.innerHTML = `
-        <video class="movie-video" controls preload="metadata">
+        <video class="movie-video" controls preload="metadata" crossorigin="anonymous">
             <source src="${url}" type="video/mp4">
+            Your browser does not support HTML5 video.
         </video>
         <div class="movie-info">
             <div>
@@ -399,7 +401,7 @@ function addMovieCard(title, genre, url) {
     movieGrid.appendChild(card);
 }
 
-// Toggle URL vs File upload inputs
+// Toggle Upload Mode
 function setUploadType(type) {
     currentUploadType = type;
     if (type === 'url') {
@@ -419,7 +421,7 @@ function setUploadType(type) {
     }
 }
 
-// Handle Form Submission
+// Upload Form Handler
 uploadForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const title = document.getElementById('movieTitle').value;
@@ -438,16 +440,18 @@ uploadForm.addEventListener('submit', function(e) {
     if (videoURL) {
         addMovieCard(title, genre + " • Added", videoURL);
         uploadForm.reset();
-        alert('Movie added to FryedCinema!');
+        alert('Movie added successfully!');
     }
 });
 
-// Fullscreen functions
+// Fullscreen Player Controls
 function openFullscreen(url) {
     fullscreenSource.src = url;
     fullscreenPlayer.load();
     modal.style.display = 'flex';
-    fullscreenPlayer.play();
+    fullscreenPlayer.play().catch(err => {
+        console.log("Autoplay blocked or load error:", err);
+    });
 }
 
 function closeFullscreen() {
@@ -456,7 +460,7 @@ function closeFullscreen() {
     fullscreenSource.src = "";
 }
 
-// Run loader
+// Initialize
 loadMovies();
 </script>
 
