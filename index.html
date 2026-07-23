@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     :root {
-      --mc-green: #55ff55;
       --mc-yellow: #ffff55;
       --mc-red: #ff5555;
       --mc-aqua: #55ffff;
@@ -52,15 +51,24 @@
       height: fit-content;
     }
 
+    /* Shared Minecraft Java Beveled Text Texture Style */
+    .mc-java-text, h1, .mc-text {
+      background: linear-gradient(180deg, #ffffff 0%, #bebebe 40%, #767676 50%, #8f8f8f 80%, #525252 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(2px 2px 0px #121212);
+    }
+
+    /* Minecraft Java Logo Style Heading */
     h1 {
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       text-align: center;
-      color: var(--mc-green);
       margin-top: 0;
-      margin-bottom: 16px;
-      text-shadow: 3px 3px 0px #003300;
-      letter-spacing: 1px;
-      line-height: 1.6;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      filter: drop-shadow(4px 4px 0px #121212);
     }
 
     /* Community Links Header Banner */
@@ -179,13 +187,16 @@
       border-right-color: var(--border-light);
       border-bottom-color: var(--border-light);
       background: var(--slot-bg);
-      color: var(--mc-green);
       font-size: 0.75rem;
       outline: none;
+      background: linear-gradient(180deg, #ffffff 0%, #bebebe 40%, #767676 50%, #8f8f8f 80%, #525252 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(2px 2px 0px #121212);
     }
 
     input:focus, select:focus {
-      border-color: var(--mc-green);
+      border-color: #bebebe;
     }
 
     .row {
@@ -210,8 +221,11 @@
       color: #e0e0e0;
     }
 
-    .result-box strong {
-      color: var(--mc-yellow);
+    .result-box strong, .result-box .mc-text {
+      background: linear-gradient(180deg, #ffffff 0%, #bebebe 40%, #767676 50%, #8f8f8f 80%, #525252 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(2px 2px 0px #121212);
     }
 
     /* Minecraft Wiki Link Styling */
@@ -306,7 +320,7 @@
   <div id="circle" class="tab-content">
     <h3>Pixel Circle Blueprint</h3>
     <div class="input-group">
-      <label>Radius: <span id="radius-val" style="color:var(--mc-yellow);">8</span> Blocks</label>
+      <label>Radius: <span id="radius-val" class="mc-text">8</span> Blocks</label>
       <input type="range" id="circle-radius" min="1" max="20" value="8" oninput="drawCircle()">
     </div>
     <canvas id="circleCanvas" width="300" height="300"></canvas>
@@ -484,7 +498,7 @@
         const pz = (z + radius) * cellSize;
 
         if (dist <= radius + 0.4 && dist >= radius - 0.5) {
-          ctx.fillStyle = '#55ff55';
+          ctx.fillStyle = '#bebebe';
           ctx.fillRect(px, pz, cellSize, cellSize);
         }
 
@@ -599,7 +613,7 @@
     
     let outcome = "";
     if (res >= 1200) {
-      outcome = "<span style='color:var(--mc-green);'>Completely Blast-Proof!</span>";
+      outcome = "<span class='mc-text'>Completely Blast-Proof!</span>";
     } else if (res >= 6.0) {
       outcome = "<span style='color:var(--mc-yellow);'>Resists distance blasts, breaks on direct hit.</span>";
     } else {
