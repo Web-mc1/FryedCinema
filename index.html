@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg-color: #1e1e2e;
-      --card-bg: #2b2b3d;
+      --card-bg: rgba(43, 43, 61, 0.92); /* Added slight transparency to blend with background */
       --accent-color: #55ff55;
       --text-color: #ffffff;
       --border-color: #44445a;
@@ -16,26 +16,37 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg-color);
+      background-image: url('c60caaca5eac4e2c935525d1999fbce0.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       color: var(--text-color);
       margin: 0;
       padding: 20px;
       display: flex;
       justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
 
     .container {
       width: 100%;
       max-width: 700px;
       background: var(--card-bg);
+      backdrop-filter: blur(8px); /* Adds a frosted glass effect over the background */
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      height: fit-content;
     }
 
     h1 {
       text-align: center;
       color: var(--accent-color);
       margin-top: 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     /* Tabs Layout */
@@ -51,7 +62,7 @@
     .tab-btn {
       flex: 1;
       padding: 10px;
-      background: #181825;
+      background: rgba(24, 24, 37, 0.8);
       border: 1px solid var(--border-color);
       color: var(--text-color);
       cursor: pointer;
@@ -119,10 +130,10 @@
   <h1>Minecraft Math Toolkit</h1>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('nether')">Nether Portal</button>
-    <button class="tab-btn" onclick="switchTab('stacks')">Stack Calc</button>
-    <button class="tab-btn" onclick="switchTab('circle')">Circle Generator</button>
-    <button class="tab-btn" onclick="switchTab('beacon')">Beacon Planner</button>
+    <button class="tab-btn active" onclick="switchTab('nether', event)">Nether Portal</button>
+    <button class="tab-btn" onclick="switchTab('stacks', event)">Stack Calc</button>
+    <button class="tab-btn" onclick="switchTab('circle', event)">Circle Generator</button>
+    <button class="tab-btn" onclick="switchTab('beacon', event)">Beacon Planner</button>
   </div>
 
   <div id="nether" class="tab-content active">
@@ -182,12 +193,12 @@
 
 <script>
   // Tab Switching Handler
-  function switchTab(tabId) {
+  function switchTab(tabId, evt) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     
     document.getElementById(tabId).classList.add('active');
-    event.target.classList.add('active');
+    evt.target.classList.add('active');
 
     if (tabId === 'circle') drawCircle();
   }
